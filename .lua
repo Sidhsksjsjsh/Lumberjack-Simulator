@@ -4,6 +4,7 @@ local T1 = wndw:Tab("Main")
 local T2 = wndw:Tab("Attack")
 local T3 = wndw:Tab("Multiclicker")
 local T4 = wndw:Tab("Hatch")
+local T6 = wndw:Tab("Teleport")
 local T5 = wndw:Tab("Code log")
 
 local workspace = game:GetService("Workspace")
@@ -11,11 +12,21 @@ local enemy = {}
 local items = {}
 local egg = {}
 local codes = {}
+local portalscrpt = {}
 
 lib:AddTable(workspace["Mobs"]["1"],enemy)
 lib:AddTable(game:GetService("ReplicatedStorage")["Items"],items)
 lib:AddTable(workspace["Eggs"],egg)
 lib:AddTable(game:GetService("ReplicatedStorage")["Codes"],codes)
+lib:AddTable(workspace["Portalers"],portalscrpt)
+
+T6:Dropdown("Select world id",portalscrpt,function(value)
+    _g.TP = value
+end)
+
+T6:Button("Teleport",function()
+    game:GetService("ReplicatedStorage")["PortalC"]:FireServer(_g.TP,workspace[game.Players.LocalPlayer.Name])
+end)
 
 T1:Toggle("Auto click",false,function(value)
   _G.click = value
@@ -87,6 +98,30 @@ T4:Toggle("Auto Hatch",false,function(value)
     while wait() do
       if _G.aht == false then break end
       game:GetService("ReplicatedStorage")["GameClient"]["Events"]["RemoteFunction"]["BuyEgg"]:InvokeServer(_G.ball,"Buy1")
+    end
+end)
+
+T4:Toggle("Hatch Space Egg [ Event Egg ]",false,function(value)
+  _G.seee = value
+    while wait() do
+      if _G.seee == false then break end
+      game:GetService("ReplicatedStorage")["GameClient"]["Events"]["RemoteEvent"]["SpaceEggEvent"]:FireServer()
+    end
+end)
+
+T4:Toggle("Hatch Lava Egg [ Event Egg ]",false,function(value)
+  _G.leee = value
+    while wait() do
+      if _G.leee == false then break end
+      game:GetService("ReplicatedStorage")["GameClient"]["Events"]["RemoteEvent"]["EventEggEvent"]:FireServer()
+    end
+end)
+
+T4:Toggle("Hatch Free Pack Egg [ Event Egg ]",false,function(value)
+  _G.fpee = value
+    while wait() do
+      if _G.fpee == false then break end
+      game:GetService("ReplicatedStorage")["GameClient"]["Events"]["RemoteEvent"]["FreePackEvent"]:FireServer()
     end
 end)
 
