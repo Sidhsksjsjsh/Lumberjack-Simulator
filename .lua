@@ -89,6 +89,16 @@ T2:Toggle("Auto attack",false,function(value)
     end
 end)
 
+T2:Toggle("Instant win",false,function(value)
+  _G.iwa = value
+    while wait() do
+      if _G.iwa == false then break end
+        game:GetService("ReplicatedStorage")["RemoveC"]:FireServer(1)
+        game:GetService("ReplicatedStorage")["WinEvent"]:FireServer(_G.enmy)
+        game:GetService("ReplicatedStorage")["RemoveC"]:FireServer(0)
+    end
+end)
+
 T4:Dropdown("Select Eggs",egg,function(value)
     _G.ball = value
 end)
