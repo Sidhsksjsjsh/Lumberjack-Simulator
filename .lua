@@ -105,7 +105,7 @@ T2:Toggle("Instant win all bosses",false,function(value)
   _G.allboss = value
     while wait() do
       if _G.allboss == false then break end
-        for i,v in pairs(workspace["Mobs"]["1"]:GetDescendants()) do
+        for i,v in pairs(workspace["Mobs"]["1"]:GetChildren()) do
             game:GetService("ReplicatedStorage")["RemoveC"]:FireServer(1)
             game:GetService("ReplicatedStorage")["WinEvent"]:FireServer(v.Name)
             game:GetService("ReplicatedStorage")["RemoveC"]:FireServer(0)
