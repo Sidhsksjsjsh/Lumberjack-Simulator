@@ -13,6 +13,7 @@ local items = {}
 local egg = {}
 local codes = {}
 local portalscrpt = {}
+local self = game.Players.LocalPlayer
 
 lib:AddTable(workspace["Mobs"]["1"],enemy)
 lib:AddTable(game:GetService("ReplicatedStorage")["Items"],items)
@@ -21,11 +22,11 @@ lib:AddTable(game:GetService("ReplicatedStorage")["Codes"],codes)
 lib:AddTable(workspace["Portalers"],portalscrpt)
 
 T6:Dropdown("Select world id",portalscrpt,function(value)
-    _g.TP = value
+    _G.TP = value
 end)
 
 T6:Button("Teleport",function()
-    game:GetService("ReplicatedStorage")["PortalC"]:FireServer(_g.TP,workspace[game.Players.LocalPlayer.Name])
+    game:GetService("ReplicatedStorage")["PortalC"]:FireServer(_G.TP,workspace[self.Name])
 end)
 
 T1:Toggle("Auto click",false,function(value)
@@ -73,7 +74,7 @@ T3:Button("Equip multiclick",function()
   end
 end)
 
-T2:Dropdown("Select Enemies",enemy,function(value)
+T2:Dropdown("Select Enemies id",enemy,function(value)
     _G.enmy = value
 end)
 
@@ -98,6 +99,20 @@ T2:Toggle("Instant win",false,function(value)
         game:GetService("ReplicatedStorage")["RemoveC"]:FireServer(0)
     end
 end)
+
+if self.Name == "Rivanda_Cheater" then
+T2:Toggle("Instant win all bosses",false,function(value)
+  _G.allboss = value
+    while wait() do
+      if _G.allboss == false then break end
+        for i,v in pairs(workspace["Mobs"]["1"]:GetDescendants()) do
+            game:GetService("ReplicatedStorage")["RemoveC"]:FireServer(1)
+            game:GetService("ReplicatedStorage")["WinEvent"]:FireServer(v.Name)
+            game:GetService("ReplicatedStorage")["RemoveC"]:FireServer(0)
+       end
+    end
+end)
+end
 
 T4:Dropdown("Select Eggs",egg,function(value)
     _G.ball = value
